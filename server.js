@@ -2,16 +2,39 @@ import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import bodyParser from 'body-parser';
 import schema from './data/schema';
+import compression from 'compression'; //tracing
 
-const GRAPHQL_PORT = 3000;
+import { ApolloEngine } from 'apollo-engine';
+const port = 3000;
+const API_KEY = 'service:karlcode-4325:Z579YY4V4EZB-E3dv546Mg'
+const engine = new ApolloEngine({
+    apiKey: API_KEY,
+    stores: [
+      {
+        name: 'inMemEmbeddedCache',
+        inMemory: {
+          cacheSize: 20971520 // 20 MB
+        }
+      }
+    ],
+    queryCache: {
+      publicFullQueryStore: 'inMemEmbeddedCache'
+    }
+});
+const app = express();
 
-const graphQLServer = express();
+app.use(compression()); //tracing
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema, tracing:true, cacheControl:true }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-graphQLServer.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-graphQLServer.listen(GRAPHQL_PORT, () =>
-  console.log(
-    `GraphiQL is now running on http://localhost:${GRAPHQL_PORT}/graphiql`
-  )
-);
+engine.listen({
+  port: port,
+  graphqlPaths: ['/graphql'],
+  expressApp: app,
+  launcherOptions: {
+    startupTimeout: 3000,
+  },
+}, () => {
+  console.log(`GraphiQL is now running on http://localhost:${port}/graphiql`);
+});
