@@ -29,6 +29,15 @@ const StaffModel = sequelize.define('staff', {           //defining schema for t
   lastName: { type: Sequelize.STRING },
 });
 
+const Actor = sequelize.define('actor', {           //defining schema for the database (sequelize specific)
+  first_name: { type: Sequelize.STRING },
+  last_name: { type: Sequelize.STRING },
+  actor_id : { type: Sequelize.INTEGER, primaryKey: true}
+},
+{ timestamps: false,
+  underscored: true,
+  freezeTableName: true});
+
 AuthorModel.hasMany(PostModel);
 PostModel.belongsTo(AuthorModel);
 
@@ -59,18 +68,10 @@ const FortuneCookie = {
     },
   };
 
-sequelize.sync({ force: true }).then(() => {
-  pool.query('SELECT * FROM staff')
-  .then(res => {
-    return StaffModel.create({
-      firstName: res.rows[0].first_name,
-      lastName: res.rows[0].last_name
-    })})
-  .catch(e => console.error(e.stack))
-}) 
+sequelize.sync()
 
 const Author = db.models.author;
 const Post = db.models.post;
 const Staff = sequelize.models.staff;
 
-export { Author, Post, FortuneCookie, Staff};
+export { Author, Post, FortuneCookie, Staff, Actor};

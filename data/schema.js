@@ -8,6 +8,7 @@ type Query {
   allAuthors: [Author]
   getFortuneCookie: String @cacheControl (maxAge: 5)
   findStaff: [Staff]
+  getActor : [Actor]
 }
 type Author {
   id: Int
@@ -25,6 +26,11 @@ type Post {
 type Staff {
   firstName: String
   lastName: String
+}
+type Actor {
+  actor_id: Int
+  first_name: String
+  last_name: String
 }
 `;                                      //each key can either be a primitive type (int, str) or an object/list ([Author], Friend)
 

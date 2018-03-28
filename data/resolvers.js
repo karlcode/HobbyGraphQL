@@ -1,4 +1,4 @@
-import { Author, Post, FortuneCookie, Staff} from './connectors';
+import { Author, Post, FortuneCookie, Staff, Actor} from './connectors';
 
 const resolvers = {
     Query: {                          // the only functions we can query on (top level of our graphql query)
@@ -13,6 +13,9 @@ const resolvers = {
       },
       findStaff(){
         return Staff.findAll();
+      },
+      getActor(){
+        return Actor.findAll()
       }
     },
     Author: {
