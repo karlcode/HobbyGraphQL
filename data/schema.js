@@ -9,6 +9,10 @@ type Query {
   getFortuneCookie: String @cacheControl (maxAge: 5)
   findStaff: [Staff]
   getActor : [Actor]
+  actor(first_name: String, last_name: String): Actor
+}
+type Mutation {
+  addStaff(first_name: String, last_name: String, staff_id: Int, address_id: Int, store_id: Int, username: String) : Staff 
 }
 type Author {
   id: Int
@@ -24,8 +28,9 @@ type Post {
   author: Author
 }
 type Staff {
-  firstName: String
-  lastName: String
+  first_name: String
+  last_name: String
+  address_id: Int
 }
 type Actor {
   actor_id: Int

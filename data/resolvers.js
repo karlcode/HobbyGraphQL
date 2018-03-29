@@ -16,6 +16,22 @@ const resolvers = {
       },
       getActor(){
         return Actor.findAll()
+      },
+      actor(_, args){
+        return Actor.find({where: args})
+      }
+    },
+    Mutation: {
+      addStaff(_, staff){
+        var wrapper = {
+          first_name: staff.first_name,
+          last_name: staff.last_name,
+          staff_id: staff.staff_id,
+          address_id: staff.address_id,
+          store_id: staff.store_id,
+          username: staff.username
+        }
+        return Staff.create(wrapper)
       }
     },
     Author: {

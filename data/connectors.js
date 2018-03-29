@@ -24,15 +24,24 @@ const PostModel = db.define('post', {
   text: { type: Sequelize.STRING },
 });
 
-const StaffModel = sequelize.define('staff', {           //defining schema for the database (sequelize specific)
-  firstName: { type: Sequelize.STRING },
-  lastName: { type: Sequelize.STRING },
-});
+const Staff = sequelize.define('staff', {           //defining schema for the database (sequelize specific)
+  first_name: { type: Sequelize.STRING },
+  last_name: { type: Sequelize.STRING },
+  staff_id : { type: Sequelize.INTEGER, primaryKey: true, autoIncrement:true},
+  address_id: { type: Sequelize.INTEGER},
+  store_id: { type: Sequelize.INTEGER},
+  username: { type: Sequelize.STRING },
+},
+{ timestamps: false,
+  underscored: true,
+  freezeTableName: true});
 
 const Actor = sequelize.define('actor', {           //defining schema for the database (sequelize specific)
   first_name: { type: Sequelize.STRING },
   last_name: { type: Sequelize.STRING },
   actor_id : { type: Sequelize.INTEGER, primaryKey: true}
+
+  
 },
 { timestamps: false,
   underscored: true,
@@ -72,6 +81,5 @@ sequelize.sync()
 
 const Author = db.models.author;
 const Post = db.models.post;
-const Staff = sequelize.models.staff;
 
 export { Author, Post, FortuneCookie, Staff, Actor};
