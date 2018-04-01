@@ -1,4 +1,5 @@
 import { Author, Post, FortuneCookie, Staff, Actor} from './connectors';
+import fetch from 'node-fetch';
 
 const resolvers = {
     Query: {                          // the only functions we can query on (top level of our graphql query)
@@ -19,7 +20,17 @@ const resolvers = {
       },
       actor(_, args){
         return Actor.find({where: args})
-      }
+      },
+      getTickers(_, args){
+        return fetch(`https://api.coinmarketcap.com/v1/ticker/`)
+        .then(response => response.json())
+      },
+      getTicker(_, args){
+        const { id } = args
+        return fetch(`https://api.coinmarketcap.com/v1/ticker/${id}`)
+        .then(response => response.json())
+        .then(res => res[0])                    //gotta return the first item since we dont want an array but a single object
+      },
     },
     Mutation: {
       addStaff(_, staff){
@@ -46,7 +57,7 @@ const resolvers = {
       views(post) {                  
         return View.findOne({ postId: post.id }).then(view => view.views);
       }
-    },
+    }
     
   };
   

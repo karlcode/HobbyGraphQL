@@ -15,7 +15,7 @@ const pool = new Pool({
 const sequelize = new Sequelize('postgresql://karlcode:Op3nsesame@myfirstdb.cigrvl7ua37i.ap-southeast-2.rds.amazonaws.com:5432/myfirstdb');
 
 const AuthorModel = db.define('author', {           //defining schema for the database (sequelize specific)
-  firstName: { type: Sequelize.STRING },
+  firstName: { type: Sequelize.STRING },            //the model is where you combine several apis into one model
   lastName: { type: Sequelize.STRING },
 });
 
@@ -24,7 +24,7 @@ const PostModel = db.define('post', {
   text: { type: Sequelize.STRING },
 });
 
-const Staff = sequelize.define('staff', {           //defining schema for the database (sequelize specific)
+const Staff = sequelize.define('staff', {          
   first_name: { type: Sequelize.STRING },
   last_name: { type: Sequelize.STRING },
   staff_id : { type: Sequelize.INTEGER, primaryKey: true, autoIncrement:true},
@@ -36,12 +36,10 @@ const Staff = sequelize.define('staff', {           //defining schema for the da
   underscored: true,
   freezeTableName: true});
 
-const Actor = sequelize.define('actor', {           //defining schema for the database (sequelize specific)
+const Actor = sequelize.define('actor', {           
   first_name: { type: Sequelize.STRING },
   last_name: { type: Sequelize.STRING },
   actor_id : { type: Sequelize.INTEGER, primaryKey: true}
-
-  
 },
 { timestamps: false,
   underscored: true,
