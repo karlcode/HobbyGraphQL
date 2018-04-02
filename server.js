@@ -27,6 +27,9 @@ app.use(compression()); //tracing
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema, tracing:true, cacheControl:true }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
+app.get('/api', (req,res) => {
+  res.send("API HIT")
+})
 
 engine.listen({
   port: port,
