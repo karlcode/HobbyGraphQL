@@ -28,7 +28,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema, tracing:true, ca
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.get('/api', (req,res) => {
-  res.send(schema.json())
+  res.send(schema)
 })
 
 engine.listen({
