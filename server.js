@@ -1,11 +1,11 @@
-const express = require('express');
-//import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
-const {graphqlExpress, graphiqlExpress} = require('apollo-server-express');
-const bodyParser = require('body-parser');
-const schema = require('./data/schema');
-const compression = require('compression');
+import express from 'express';
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import bodyParser from 'body-parser';
+import schema from './data/schema';
+import compression from 'compression';
 
-const { ApolloEngine } = require('apollo-engine');
+import { ApolloEngine } from 'apollo-engine';
+
 const port = 3000;
 const API_KEY = 'service:karlcode-4325:Z579YY4V4EZB-E3dv546Mg'
 const engine = new ApolloEngine({
