@@ -2,16 +2,12 @@ import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
 import fetch from 'node-fetch';
-import { Pool } from 'pg';
 
 const db = new Sequelize('blog', null, null, {
   dialect: 'sqlite',
   storage: './blog.sqlite',
 });
 
-const pool = new Pool({
-  connectionString: 'postgresql://karlcode:Op3nsesame@myfirstdb.cigrvl7ua37i.ap-southeast-2.rds.amazonaws.com:5432/myfirstdb',
-})
 const sequelize = new Sequelize('postgresql://karlcode:Op3nsesame@myfirstdb.cigrvl7ua37i.ap-southeast-2.rds.amazonaws.com:5432/myfirstdb');
 
 const AuthorModel = db.define('author', {           //defining schema for the database (sequelize specific)
